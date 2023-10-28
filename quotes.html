@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" 
+    crossorigin="anonymous" 
+    referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="quotes.css">
+    <title>Document</title>
+</head>
+<body>
+    <!--<div id="quotes"></div>
+    <div id="author"></div>
+    <button id="btn">new quotes</button>
+    <button id="btn1">tweet me</button>-->
+    <section class="container">
+        <article class="inner">
+            <article class="box">
+                <p class="num">
+                   <img src="tw.png" alt="" title="tweetme" id="btn1"/>
+                </p>
+                <p id="p1">QUOTES</p>
+                <div class="text">
+                    <i class="start-quote fas fa-quote-left" id="i1"></i>
+                    <br>
+                   <p id="quotes" class="quotes"></p>
+                    <br>
+                    <i class="start-quote fas fa-quote-right" id="i2"></i>
+                    <br>
+                    <p id="author" class="author"></p>
+                </div>
+                <label class="button">
+                    <p id="btn">new quotes</p>
+                </label>
+            </article>
+        </article>
+    </section>
+    <script>
+        const quotes=document.getElementById("quotes");
+        const author=document.getElementById("author");
+        const newq=document.getElementById("btn");
+        const tweet=document.getElementById("btn1");
+        let reald="";
+        let qdata="";
+        const tweetme=()=>{
+          let tweetp="http://twitter.com/intent/tweet?text=qdata.text";
+          window.open(tweetp);
+        }
+        const getnewquotes=()=>{
+            let randomn=Math.floor(Math.random()*10);
+            qdata=reald[randomn];
+            quotes.innerText=qdata.text;
+            qdata.author==null?author.innerText="unknown": author.innerText=qdata.author;
+           
+        };
+        const getquotes=async()=>{
+            const api="https://type.fit/api/quotes";
+            try{
+                
+                let data=await fetch(api);//we have to learn about await async js
+                reald= await data.json();
+                //console.log(reald[10].text);
+                //console.log(reald[10].author);
+             getnewquotes();
+            }catch(error){ }
+        }
+        tweet.addEventListener("click",tweetme);
+        newq.addEventListener("click",getnewquotes);
+        getquotes();
+    </script>
+</body>
+</html>
